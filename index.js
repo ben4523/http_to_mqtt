@@ -24,6 +24,20 @@ var app = express();
 function getMqttClient() {
 
     var options = {
+        keepalive: 60,
+        clientId: 'mqttjs_' + Math.random().toString(16).substr(2, 8),
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        will: {
+        topic: 'WillMsg',
+        payload: 'Connection Closed abnormally..!',
+        qos: 0,
+        retain: false
+        },
+        rejectUnauthorized: false,
         username: settings.mqtt.user,
         password: settings.mqtt.password
     };
